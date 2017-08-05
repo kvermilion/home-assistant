@@ -105,8 +105,9 @@ class NeatoConnectedSensor(Entity):
                 self._status_state = ERRORS.get(self._state['error'])
         if self.type == SENSOR_TYPE_BATTERY:
             self._battery_state = self._state['details']['charge']
-        numMaps = len(self._mapdata[self.robot.serial]['maps'])
-        if self._mapdata is None or numMaps == 0:
+        if self._mapdata is None:
+            return
+        if len(self._mapdata[self.robot.serial]['maps']) == 0:
             return
         self.clean_time_start = (
             (self._mapdata[self.robot.serial]['maps'][0]['start_at']
